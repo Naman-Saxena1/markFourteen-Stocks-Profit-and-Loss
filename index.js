@@ -27,14 +27,14 @@ function calculateProfitOrLoss(initial_Price, quantity_Bought, current_Price)
 {
     if(initial_Price<current_Price)
     {
-        let profit = (current_Price-initial_Price)*quantity_Bought
-        let profitPercentage = (profit/(initial_Price*quantity_Bought))*100
+        let profit = ((current_Price-initial_Price)*quantity_Bought).toFixed(2)
+        let profitPercentage = ((profit/(initial_Price*quantity_Bought))*100).toFixed(2)
         setMessage("Profit",profit,profitPercentage)
     }
     else if(initial_Price>current_Price)
     {
-        let loss = (initial_Price-current_Price)*quantity_Bought
-        let lossPercentage = (loss/(initial_Price*quantity_Bought))*100
+        let loss = ((initial_Price-current_Price)*quantity_Bought).toFixed(2)
+        let lossPercentage = ((loss/(initial_Price*quantity_Bought))*100).toFixed(2)
         setMessage("Loss",loss,lossPercentage)
     }
     else
@@ -48,8 +48,20 @@ function calculateButtonClickHandler()
     let initialPriceValue = Number(initialPrice.value)
     let quantityValue = Number(quantity.value)
     let currentPriceValue = Number(currentPrice.value)
-
-    calculateProfitOrLoss(initialPriceValue, quantityValue, currentPriceValue)
+    if(initialPrice.value==""||quantity.value==""||currentPrice.value=="")
+    {
+        output.innerText=`Please enter all inputs!`
+        output.style.color = '#9c466d';
+    }
+    else if(initialPriceValue<0||quantityValue<0||currentPriceValue<0)
+    {
+        output.innerText=`Please enter positive values!`
+        output.style.color = '#9c466d';
+    }
+    else
+    {
+        calculateProfitOrLoss(initialPriceValue, quantityValue, currentPriceValue)
+    }
 }
 
 CalculateBtn.addEventListener("click",calculateButtonClickHandler)
